@@ -6,11 +6,11 @@ title:  Team
 # {{ page.title }}
 
 
-## USER 1
-***Justin Lee***: justikl5
+## Justin Lee
+***UCI Net ID***: justikl5
 
-## USER 2
-***Cedric Ngo***: cedriccn
+## Cedric Ngo
+***UCI Net ID***: cedriccn
 
-## USER 3
+## Dustin Luong
 ***UCI Net ID***: ddluong1
