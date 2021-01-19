@@ -7,7 +7,7 @@ title:  Team
 
 
 ## USER 1
-***UCI Net ID***: ucinetid1
+***Justin Lee***: justikl5
 
 ## USER 2
 ***UCI Net ID***: ucinetid2
