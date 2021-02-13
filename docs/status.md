@@ -14,11 +14,12 @@ We are using the Haar feature-based cascade classifier (known for learning to de
 However, Haar-cascade is only good for detecting shapes but our project requires color. For now, our plan is to detect the object in the image and extract the color from pixels in the image to choose the one that appears the most.  We will then repeat this process with a classifier for each type of clothing, eventually including shirts, jackets, pants, shorts, shoes, and possibly hats.
 
 ## Evaluation
-Our classifier can currently detect shirts in an image to an extent. However, it is not complex enough to detect them at strange angles.  The OpenCV implementation of Haar-cascade does not support quantitative evaluation metrics, but we can qualitatively assess the accuracy of our classifier after each training by manual checking.  Examples of our current classifier's accuracy are shown below:
+Our classifier can currently detect shirts in an image to an extent. However, it is not complex enough to detect them at strange angles.  The OpenCV implementation of Haar-cascade does not natively support quantitative evaluation metrics, but we are planning to implement this by manually establishing ground-truth boundaries for each test datum, and then using mean Average Precision to calculate the overlap between the classifier's rectangles and the ground truth.  
+
+Then, we will plot the performance of each classifier over a number of different parameters to find the optimal model for each piece of clothing.  We can currently qualitatively assess the accuracy of our classifier after each training by manual checking.  Examples of our current classifier's accuracy are shown below:
 
 ![Example 1](https://github.com/j-lee-88/FITCRAFT/blob/main/docimg/classifyexample1.png)
 ![Example 2](https://github.com/j-lee-88/FITCRAFT/blob/main/docimg/classifyexample2.png)
->>>>>>> 13dd6d1ed85aad13f306c42448a07f9a8d7ca237
 
 ## Remaining Goals and Challenges
 We plan on increasing our detection to include shoes and pants at the minimum. We will also need to implement the portion in our project where we use the information gained from object detection and apply it to a Minecraft skin.  In addition, we will explore different training parameters and methods to enhance the performance of our classifier so that it can detect pieces of clothing at non-head-on angles.  
