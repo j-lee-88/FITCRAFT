@@ -1,5 +1,5 @@
 ---
-laout: default
+layout: default
 title: status
 ---
 ## Video Link
