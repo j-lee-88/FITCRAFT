@@ -16,8 +16,8 @@ However, Haar-cascade is only good for detecting shapes but our project requires
 ## Evaluation
 Our classifier can currently detect shirts in an image to an extent. However, it is not complex enough to detect them at strange angles.  The OpenCV implementation of Haar-cascade does not support quantitative evaluation metrics, but we can qualitatively assess the accuracy of our classifier after each training by manual checking.  Examples of our current classifier's accuracy are shown below:
 
-![Example 1](https://imgur.com/a/NLgVFnj)
-![Example 2](https://imgur.com/a/0G6aAZP)
+![Example 1](https://github.com/j-lee-88/FITCRAFT/blob/main/docimg/classifyexample1.png)
+![Example 2](https://github.com/j-lee-88/FITCRAFT/blob/main/docimg/classifyexample2.png)
 >>>>>>> 13dd6d1ed85aad13f306c42448a07f9a8d7ca237
 
 ## Remaining Goals and Challenges
