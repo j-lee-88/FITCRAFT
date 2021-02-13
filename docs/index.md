@@ -19,7 +19,7 @@ The project our team has chosen to undertake is converting images of humans in o
 ![Simple Goal Image](https://github.com/j-lee-88/FITCRAFT/blob/main/goal%20img1.jpg)
 ![Simple Goal Minecraft Skin](https://github.com/j-lee-88/FITCRAFT/blob/main/goal%20img2.png)
 
-We will translate these objects to the minecraft skin layout and finally the real skin. This is what it will look like:
+Here are examples of what the minecraft skin layout to real skin look like:
 
 ![Mockup of Final Minecraft Skin For RGB T-Shirts](https://github.com/j-lee-88/FITCRAFT/blob/main/docimg/bluelayout.png)
 ![Mockup of Final Minecraft Skin For RGB T-Shirts](https://github.com/j-lee-88/FITCRAFT/blob/main/docimg/bluelayoutshirt.png)
