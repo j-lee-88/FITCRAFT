@@ -33,6 +33,4 @@ Justin Lee
 Cedric Ngo
 
 ## Relevant Material
-- [OpenCV Haar-Cascade documentation](https://docs.opencv.org/3.4/db/d28/tutorial_cascade_classifier.html)
-
->>>>>>> 13dd6d1ed85aad13f306c42448a07f9a8d7ca237
+[OpenCV Haar-Cascade documentation](https://docs.opencv.org/3.4/db/d28/tutorial_cascade_classifier.html)
