@@ -11,6 +11,3 @@ title:  Team
 
 ## Cedric Ngo
 ***UCI Net ID***: cedriccn
-
-## Dustin Luong
-***UCI Net ID***: ddluong1
