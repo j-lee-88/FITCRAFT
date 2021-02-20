@@ -18,8 +18,8 @@ Our classifier can currently detect shirts in an image to an extent. However, it
 
 Then, we will plot the performance of each classifier over a number of different parameters to find the optimal model for each piece of clothing.  We can currently qualitatively assess the accuracy of our classifier after each training by manual checking.  Examples of our current classifier's accuracy are shown below:
 
-<img src="https://github.com/j-lee-88/FITCRAFT/blob/main/docimg/classifyexample1.png" class="img-responsive" alt=""> </div>
-<img src="https://github.com/j-lee-88/FITCRAFT/blob/main/docimg/classifyexample2.png" class="img-responsive" alt=""> </div>
+<img src="https://github.com/j-lee-88/FITCRAFT/blob/main/docimg/classifyexample1.png"/>
+<img src="https://github.com/j-lee-88/FITCRAFT/blob/main/docimg/classifyexample2.png"/>
 
 ## Remaining Goals and Challenges
 We plan on increasing our detection to include shoes and pants at the minimum. We will also need to implement the portion in our project where we use the information gained from object detection and apply it to a Minecraft skin.  In addition, we will explore different training parameters and methods to enhance the performance of our classifier so that it can detect pieces of clothing at non-head-on angles.  
