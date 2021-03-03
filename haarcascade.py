@@ -15,6 +15,28 @@ def quantize(rectangle):
 
     (im.crop((left, top, right, bottom))).save('temp.jpg')
 
+def find_color(weights):
+    quantize(weights)
+    
+    img = cv2.imread('temp.jpg')
+    #img = cv2.cvtColor(image, cv2.COLOR_BGR2Lab)
+    #img = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+    #img = cv2.cvtColor(image, cv2.COLOR_BGR2YCrCb)
+
+    Z = img.reshape((-1,3))
+    Z = np.float32(Z)
+
+    criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 10, 1.0)
+    K = 1
+    ret,label,center = cv2.kmeans(Z,K,None,criteria,10,cv2.KMEANS_RANDOM_CENTERS)
+
+    center = np.uint8(center)
+    res = center[label.flatten()]
+    res2 = res.reshape((img.shape))
+
+    cv2.imshow('res2', res2) 
+    cv2.waitKey(0)
+
 #find largest confidence rectangle since multiple objects can be detected with same confidence
 def largest_confident_rectangle(detections, weights):
     if len(weights) > 0:
@@ -60,8 +82,35 @@ def largest_confident_rectangle(detections, weights):
 #pantsCascade = cv2.CascadeClassifier('pantshaarcascade2/cascade.xml')
 pantsCascade = cv2.CascadeClassifier('pantshaarcascade3/cascade.xml')
 shirtCascade = cv2.CascadeClassifier('shirtcascade/cascade.xml')
-image_path = 'examples/beigepants.jpg'
+image_path = 'examples/brownpants.jpg'
 image = cv2.imread(image_path)
+
+#Color space experimentation
+
+#BGR
+cv2.imshow('image', image)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+
+#LAB = CIE
+image = cv2.cvtColor(image, cv2.COLOR_BGR2Lab)
+cv2.imshow('image', image)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+#HSV
+image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+cv2.imshow('image', image)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+#Close approximation to YUV
+image = cv2.cvtColor(image, cv2.COLOR_BGR2YCrCb)
+cv2.imshow('image', image)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
 shirtDetections, shirtReject, shirtWeights = shirtCascade.detectMultiScale3(gray, scaleFactor=1.025, minNeighbors=0, flags=0, outputRejectLevels=True)
@@ -91,37 +140,7 @@ else:
 
 #quantize
 if len(shirtWeights) > 0:
-    quantize(shirtMinCon)
-
-    img = cv2.imread('temp.jpg')
-    Z = img.reshape((-1,3))
-    Z = np.float32(Z)
-
-    criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 10, 1.0)
-    K = 1
-    ret,label,center = cv2.kmeans(Z,K,None,criteria,10,cv2.KMEANS_RANDOM_CENTERS)
-
-    center = np.uint8(center)
-    res = center[label.flatten()]
-    res2 = res.reshape((img.shape))
-
-    cv2.imshow('res2', res2) 
-    cv2.waitKey(0)
+    find_color(shirtMinCon)
 
 if (len(pantsWeights) > 0):
-    quantize(pantsMinCon)
-
-    img = cv2.imread('temp.jpg')
-    Z = img.reshape((-1,3))
-    Z = np.float32(Z)
-
-    criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 10, 1.0)
-    K = 1
-    ret,label,center = cv2.kmeans(Z,K,None,criteria,10,cv2.KMEANS_RANDOM_CENTERS)
-
-    center = np.uint8(center)
-    res = center[label.flatten()]
-    res2 = res.reshape((img.shape))
-
-    cv2.imshow('res2', res2) 
-    cv2.waitKey(0)
+    find_color(pantsMinCon)
