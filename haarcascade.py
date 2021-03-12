@@ -82,7 +82,7 @@ def largest_confident_rectangle(detections, weights):
 #pantsCascade = cv2.CascadeClassifier('pantshaarcascade2/cascade.xml')
 pantsCascade = cv2.CascadeClassifier('pantshaarcascade3/cascade.xml')
 shirtCascade = cv2.CascadeClassifier('shirtcascade/cascade.xml')
-image_path = 'examples/brownpants.jpg'
+image_path = 'examples/redShirt.jpg'
 image = cv2.imread(image_path)
 
 #Color space experimentation
@@ -91,7 +91,6 @@ image = cv2.imread(image_path)
 cv2.imshow('image', image)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
-
 
 #LAB = CIE
 image = cv2.cvtColor(image, cv2.COLOR_BGR2Lab)
@@ -111,13 +110,52 @@ cv2.imshow('image', image)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 
+image = cv2.imread(image_path)
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-shirtDetections, shirtReject, shirtWeights = shirtCascade.detectMultiScale3(gray, scaleFactor=1.025, minNeighbors=0, flags=0, outputRejectLevels=True)
+shirtDetections, shirtReject, shirtWeights = shirtCascade.detectMultiScale3(gray, scaleFactor=1.09, minNeighbors=0, flags=0, outputRejectLevels=True)
+
 shirtMaxCon, shirtMinCon, shirtMaxRectSize, shirtMinRectSize = largest_confident_rectangle(shirtDetections, shirtWeights)
 
 pantsDetections, pantsReject, pantsWeights = pantsCascade.detectMultiScale3(gray, scaleFactor=1.07, minNeighbors=0, flags=0, outputRejectLevels=True)
 pantsMaxCon, pantsMinCon, pantsMaxRectSize, pantsMinRectSize = largest_confident_rectangle(pantsDetections, pantsWeights)
+
+min_shirt_weight, max_shirt_weight = (0, 0), (0, 0)
+min_pants_weight, max_pants_weight = (0, 0), (0, 0)
+
+i = 1.01
+avg_shirt_weight, avg_pants_weight = (0, 0), (0, 0)
+
+while i < 1.5:
+    shirtDetections, shirtReject, shirtWeights = shirtCascade.detectMultiScale3(gray, scaleFactor=i, minNeighbors=0, flags=0, outputRejectLevels=True)
+    shirtMaxCon, shirtMinCon, shirtMaxRectSize, shirtMinRectSize = largest_confident_rectangle(shirtDetections, shirtWeights)
+    if (len(shirtWeights) > 0):
+        avg_shirt_weight = sum(shirtWeights)/len(shirtWeights)
+
+    pantsDetections, pantsReject, pantsWeights = pantsCascade.detectMultiScale3(gray, scaleFactor=i, minNeighbors=0, flags=0, outputRejectLevels=True)
+    pantsMaxCon, pantsMinCon, pantsMaxRectSize, pantsMinRectSize = largest_confident_rectangle(pantsDetections, pantsWeights)
+    if (len(pantsWeights) > 0):
+        avg_pants_weight = sum(pantsWeights)/len(pantsWeights)
+
+    if avg_shirt_weight < min_shirt_weight[0]:
+        min_shirt_weight = (avg_shirt_weight, i)
+    if avg_shirt_weight > max_shirt_weight[0]:
+        max_shirt_weight = (avg_pants_weight, i)
+    if avg_pants_weight < min_pants_weight[0]:
+        min_pants_weight = (avg_pants_weight, i)
+    if avg_pants_weight > max_pants_weight[0]:
+        max_pants_weight = (avg_pants_weight, i)
+
+    i+=0.02
+
+print("Max shirt weight and scale factor")
+print(max_shirt_weight)
+print("Min pants weight and scale factor")
+print(min_shirt_weight)
+print("Max pants weight and scale factor")
+print(max_pants_weight)
+print("Min pants weight and scale factor")
+print(min_pants_weight)
 
 print(shirtMaxRectSize, shirtMinRectSize, pantsMaxRectSize, pantsMinRectSize)
 #draw rectangle for detected objects if they exist and don't include if it's not at least 40,000 pixels since that is likely too small
