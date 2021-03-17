@@ -5,7 +5,7 @@ import translateskin
 from ast import literal_eval as make_tuple
 from PIL import Image
 from translateskin import draw_shirt
-from translateskin import torso_2, left_leg_2, right_leg_2, left_leg, right_leg
+from translateskin import torso_2, left_leg_2, right_leg_2, left_leg, right_leg, left_shoe, right_shoe
 
 
 def quantize(rectangle):
@@ -31,22 +31,8 @@ def find_color(weights):
     #img = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
     #img = cv2.cvtColor(image, cv2.COLOR_BGR2YCrCb)
 
-    Z = img.reshape((-1,3))
-    Z = np.float32(Z)
-
-    criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 10, 1.0)
-    K = 1
-    ret,label,center = cv2.kmeans(Z,K,None,criteria,10,cv2.KMEANS_RANDOM_CENTERS)
-
-    center = np.uint8(center)
-    res = center[label.flatten()]
-    res2 = res.reshape((img.shape))
-
-    cv2.imshow('res2', res2) 
-    cv2.waitKey(0)
-
-    #color = res2.getpixel((5,5))
-    return res2[0,0]
+    x, y = img.shape[:2]
+    return img[x//2, y//2]
 
 #find largest confidence rectangle since multiple objects can be detected with same confidence
 def largest_confident_rectangle(detections, weights):
@@ -93,7 +79,7 @@ def largest_confident_rectangle(detections, weights):
 #pantsCascade = cv2.CascadeClassifier('pantshaarcascade2/cascade.xml')
 pantsCascade = cv2.CascadeClassifier('pantshaarcascade3/cascade.xml')
 shirtCascade = cv2.CascadeClassifier('shirtcascade/cascade.xml')
-#shoeCascade = cv2.CascadeClassifier('shoecascade/cascade.xml')
+shoeCascade = cv2.CascadeClassifier('shoecascade/cascade.xml')
 image_path = 'examples/tshirtpants.jpeg'
 image = cv2.imread(image_path)
 finalSkin = ""
@@ -101,27 +87,27 @@ finalSkin = ""
 #Color space experimentation
 
 #BGR
-cv2.imshow('image', image)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+##cv2.imshow('image', image)
+##cv2.waitKey(0)
+##cv2.destroyAllWindows()
 
 #LAB = CIE
-image = cv2.cvtColor(image, cv2.COLOR_BGR2Lab)
-cv2.imshow('image', image)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+##image = cv2.cvtColor(image, cv2.COLOR_BGR2Lab)
+##cv2.imshow('image', image)
+##cv2.waitKey(0)
+##cv2.destroyAllWindows()
 
 #HSV
-image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
-cv2.imshow('image', image)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+##image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+##cv2.imshow('image', image)
+##cv2.waitKey(0)
+##cv2.destroyAllWindows()
 
 #Close approximation to YUV
-image = cv2.cvtColor(image, cv2.COLOR_BGR2YCrCb)
-cv2.imshow('image', image)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+##image = cv2.cvtColor(image, cv2.COLOR_BGR2YCrCb)
+##cv2.imshow('image', image)
+##cv2.waitKey(0)
+##cv2.destroyAllWindows()
 
 image = cv2.imread(image_path)
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -132,8 +118,8 @@ shirtMaxCon, shirtMinCon, shirtMaxRectSize, shirtMinRectSize = largest_confident
 pantsDetections, pantsReject, pantsWeights = pantsCascade.detectMultiScale3(gray, scaleFactor=1.07, minNeighbors=0, flags=0, outputRejectLevels=True)
 pantsMaxCon, pantsMinCon, pantsMaxRectSize, pantsMinRectSize = largest_confident_rectangle(pantsDetections, pantsWeights)
 
-#shoeDetections, shoeReject, shoeWeights = shoeCascade.detectMultiScale3(gray, scaleFactor=1.07, minNeighbors=0, flags=0, outputRejectLevels=True)
-#shoeMaxCon, shoeMinCon, shoeMaxRectSize, shoeMinRectSize = largest_confident_rectangle(shoeDetections, shoeWeights)
+shoeDetections, shoeReject, shoeWeights = shoeCascade.detectMultiScale3(gray, scaleFactor=1.07, minNeighbors=0, flags=0, outputRejectLevels=True)
+shoeMaxCon, shoeMinCon, shoeMaxRectSize, shoeMinRectSize = largest_confident_rectangle(shoeDetections, shoeWeights)
 
 min_shirt_weight, max_shirt_weight = (10, 0), (0, 0)
 min_pants_weight, max_pants_weight = (10, 0), (0, 0)
@@ -160,10 +146,10 @@ while i < 1.5:
     if (len(pantsWeights) > 0):
         avg_pants_weight = sum(pantsWeights)/len(pantsWeights)
 
-    #shoeDetections, shoeReject, shoeWeights = shoeCascade.detectMultiScale3(gray, scaleFactor=i, minNeighbors=0, flags=0, outputRejectLevels=True)
-    #shoeMaxCon, shoeMinCon, shoeMaxRectSize, shoeMinRectSize = largest_confident_rectangle(shoeDetections, shoeWeights)
-    #if (len(shoeWeights) > 0):
-        #avg_shoe_weight = sum(shoeWeights)/len(shoeWeights)
+    shoeDetections, shoeReject, shoeWeights = shoeCascade.detectMultiScale3(gray, scaleFactor=i, minNeighbors=0, flags=0, outputRejectLevels=True)
+    shoeMaxCon, shoeMinCon, shoeMaxRectSize, shoeMinRectSize = largest_confident_rectangle(shoeDetections, shoeWeights)
+    if (len(shoeWeights) > 0):
+        avg_shoe_weight = sum(shoeWeights)/len(shoeWeights)
 
     if avg_shirt_weight < min_shirt_weight[0]:
         min_shirt_weight = (avg_shirt_weight, i)
@@ -173,10 +159,10 @@ while i < 1.5:
         min_pants_weight = (avg_pants_weight, i)
     if avg_pants_weight > max_pants_weight[0]:
         max_pants_weight = (avg_pants_weight, i)
-    #if avg_shoe_weight < min_shoe_weight[0]:
-        #min_shoe_weight = (avg_shoe_weight, i)
-    #if avg_shoe_weight > max_shoe_weight[0]:
-        #max_shoe_weight = (avg_shoe_weight, i)
+    if avg_shoe_weight < min_shoe_weight[0]:
+        min_shoe_weight = (avg_shoe_weight, i)
+    if avg_shoe_weight > max_shoe_weight[0]:
+        max_shoe_weight = (avg_shoe_weight, i)
 
     i+=0.02
 
@@ -188,10 +174,10 @@ print("Max pants weight and scale factor")
 print(max_pants_weight)
 print("Min pants weight and scale factor")
 print(min_pants_weight)
-#print("Max shoe weight and scale factor")
-#print(max_shoe_weight)
-#print("Min shoe weight and scale factor")
-#print(min_shoe_weight)
+print("Max shoe weight and scale factor")
+print(max_shoe_weight)
+print("Min shoe weight and scale factor")
+print(min_shoe_weight)
 
 print(shirtMaxRectSize, shirtMinRectSize, pantsMaxRectSize, pantsMinRectSize)
 #draw rectangle for detected objects if they exist and don't include if it's not at least 40,000 pixels since that is likely too small
@@ -203,8 +189,8 @@ shirtMaxCon, shirtMinCon, shirtMaxRectSize, shirtMinRectSize = largest_confident
 pantsDetections, pantsReject, pantsWeights = pantsCascade.detectMultiScale3(gray, scaleFactor=min_pants_weight[1], minNeighbors=0, flags=0, outputRejectLevels=True)
 pantsMaxCon, pantsMinCon, pantsMaxRectSize, pantsMinRectSize = largest_confident_rectangle(pantsDetections, pantsWeights)
 
-#shoeDetections, shoeReject, shoeWeights = shoeCascade.detectMultiScale3(gray, scaleFactor=min_shoe_weight[1], minNeighbors=0, flags=0, outputRejectLevels=True)
-#shoeMaxCon, shoeMinCon, shoeMaxRectSize, shoeMinRectSize = largest_confident_rectangle(shoeDetections, shoeWeights)
+shoeDetections, shoeReject, shoeWeights = shoeCascade.detectMultiScale3(gray, scaleFactor=min_shoe_weight[1], minNeighbors=0, flags=0, outputRejectLevels=True)
+shoeMaxCon, shoeMinCon, shoeMaxRectSize, shoeMinRectSize = largest_confident_rectangle(shoeDetections, shoeWeights)
 
 #shirts
 if len(shirtWeights) > 0 and shirtMinRectSize > 40000:
@@ -224,13 +210,13 @@ else:
     print("no pants found")
 
 #shoes
-#if len(shoeWeights) > 0:# and shoeMinRectSize > 24000:
-    #cv2.rectangle(image, (shoeMaxCon[0], shoeMaxCon[1]), (shoeMaxCon[0] + shoeMaxCon[2], shoeMaxCon[1] + shoeMaxCon[3]), (0,255,0), 3)
-    #cv2.rectangle(image, (shoeMinCon[0], shoeMinCon[1]), (shoeMinCon[0] + shoeMinCon[2], shoeMinCon[1] + shoeMinCon[3]), (0,255,0), 3)
-    #cv2.imshow('examples/jacket_1.jpg', image)
-    #cv2.waitKey(0)
-#else:
-    #print("no shoe found")
+if len(shoeWeights) > 0 and shoeMinRectSize > 24000:
+    cv2.rectangle(image, (shoeMaxCon[0], shoeMaxCon[1]), (shoeMaxCon[0] + shoeMaxCon[2], shoeMaxCon[1] + shoeMaxCon[3]), (0,255,0), 3)
+    cv2.rectangle(image, (shoeMinCon[0], shoeMinCon[1]), (shoeMinCon[0] + shoeMinCon[2], shoeMinCon[1] + shoeMinCon[3]), (0,255,0), 3)
+    cv2.imshow('examples/jacket_1.jpg', image)
+    cv2.waitKey(0)
+else:
+    print("no shoe found")
 
 #quantize
 if len(shirtWeights) > 0 and shirtMinRectSize > 10000:
@@ -247,7 +233,7 @@ if len(shirtWeights) > 0 and shirtMinRectSize > 10000:
     secondNum = int(secondNumString)
     thirdNum = int(thirdNumString[0])
 
-    finalSkin = draw_shirt("steve.png", finalSkin, torso_2, (firstNum,secondNum,thirdNum))
+    finalSkin = draw_shirt("default.png", finalSkin, torso_2, (firstNum,secondNum,thirdNum))
 
 if len(pantsWeights) > 0 and pantsMinRectSize > 10000:
     pantsColor = find_color(pantsMinCon)
@@ -262,20 +248,20 @@ if len(pantsWeights) > 0 and pantsMinRectSize > 10000:
     secondNum = int(secondNumString)
     thirdNum = int(thirdNumString[0])
 
-    finalSkin = draw_shirt("steve.png", finalSkin, left_leg, (firstNum, secondNum, thirdNum))
-    finalSkin = draw_shirt("steve.png", finalSkin, right_leg, (firstNum, secondNum, thirdNum))
+    finalSkin = draw_shirt("default.png", finalSkin, left_leg, (firstNum, secondNum, thirdNum))
+    finalSkin = draw_shirt("default.png", finalSkin, right_leg, (firstNum, secondNum, thirdNum))
 
-#if len(shoeWeights) > 0:
-    #shirtColor = find_color(shoeMinCon)
-    #stringTuple = str(shirtColor)
-    #newTuple = stringTuple.split(" ")
-    #firstNumString = newTuple[0].split("[")
-    #secondNumString = newTuple[1]
-    #thirdNumString = newTuple[2].split("]")
+if len(shoeWeights) > 0 and shoeMinRectSize > 24000:
+    shirtColor = find_color(shoeMinCon)
+    stringTuple = str(shirtColor)
+    newTuple = stringTuple.split(" ")
+    firstNumString = newTuple[0].split("[")
+    secondNumString = newTuple[1]
+    thirdNumString = newTuple[2].split("]")
     
-    #firstNum = int(firstNumString[1])
-    #secondNum = int(secondNumString)
-    #thirdNum = int(thirdNumString[0])
+    firstNum = int(firstNumString[1])
+    secondNum = int(secondNumString)
+    thirdNum = int(thirdNumString[0])
 
-    #finalSkin = draw_shirt("steve.png", finalSkin, left_leg, (firstNum, secondNum, thirdNum))
-    #finalSkin = draw_shirt("steve.png", finalSkin, right_leg, (firstNum, secondNum, thirdNum))
+    finalSkin = draw_shirt("default.png", finalSkin, left_shoe, (firstNum, secondNum, thirdNum))
+    finalSkin = draw_shirt("default.png", finalSkin, right_shoe, (firstNum, secondNum, thirdNum))

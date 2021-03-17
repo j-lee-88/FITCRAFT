@@ -4,8 +4,8 @@ import numpy as np
 
 #create blank 64x64 png to paint on
 #image = Image.new('RGB', (64, 64))
-path = "steve.png"
-original = Image.open("steve.png")
+path = "default.png"
+original = Image.open("default.png")
 #edited = original.copy()
 
 def draw_shirt(path, workingSkin, boxes, color):
@@ -38,11 +38,18 @@ head = {
 
 right_leg = {
     'top' : [4,16,8,20],
+    'right' : [0,20,4,29],
+    'front' : [4,20,8,29],
+    'left' : [8,20,12,29],
+    'back' : [12,20,16,29]
+}
+
+right_shoe = {
     'bottom' : [8,16,12,20],
-    'right' : [0,20,4,32],
-    'front' : [4,20,8,32],
-    'left' : [8,20,12,32],
-    'back' : [12,20,16,32]
+    'right' : [0,30,4,31],
+    'front' : [4,30,8,31],
+    'left' : [8,30,12,31],
+    'back' : [12,30,16,31]
 }
 
 torso = {
@@ -66,11 +73,18 @@ right_arm = {
 
 left_leg = {
     'top' : [20,48,24,52],
+    'right' : [16,52,20,61],
+    'front' : [20,52,24,61],
+    'left' : [24,52,28,61],
+    'back' : [28,52,32,61]
+}
+
+left_shoe = {
     'bottom' : [24,48,28,52],
-    'right' : [16,52,20,64],
-    'front' : [20,52,24,64],
-    'left' : [24,52,28,64],
-    'back' : [28,52,32,64]
+    'right' : [16,62,20,64],
+    'front' : [20,62,24,64],
+    'left' : [24,62,28,64],
+    'back' : [28,62,32,64]
 }
 
 left_arm = {
@@ -97,7 +111,7 @@ torso_2 = {
     'right' : [16,36,20,48],
     'front' : [20,36,28,48],
     'left' : [28,36,32,48],
-    'back' : [32,36,40,48]
+    'back' : [32,36,39,48]
 }
 
 right_arm_2 = {
