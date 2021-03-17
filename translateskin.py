@@ -8,11 +8,14 @@ path = "steve.png"
 original = Image.open("steve.png")
 #edited = original.copy()
 
-def draw_shirt(path, boxes, color):
-    image = cv2.imread(path)
+def draw_shirt(path, workingSkin, boxes, color):
+    if (workingSkin == ""):
+        image = cv2.imread(path)
+    else:
+        image = cv2.imread(workingSkin)
     img = image.copy()
-    cv2.imshow("test", image)
-    cv2.waitKey(0)
+    #cv2.imshow("test", image)
+    #cv2.waitKey(0)
     for name, value in boxes.items():
         cv2.rectangle(img, (value[0], value[1]), (value[2], value[3]), color, -1)
     temp = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
@@ -22,6 +25,7 @@ def draw_shirt(path, boxes, color):
     img = cv2.merge(rgba,4)
     #cv2.imwrite("test.png", dst)
     cv2.imwrite("skin.png", img)
+    return "skin.png"
 
 head = {
     'top' : [8,0,16,8],
@@ -124,4 +128,4 @@ left_arm_2 = {
 }
 
 #draw_shirt(path, torso, (0,255,0))
-draw_shirt(path, torso_2, (0,255,0))
+#draw_shirt(path, torso_2, (178,181,186))
