@@ -5,7 +5,7 @@ import translateskin
 from ast import literal_eval as make_tuple
 from PIL import Image
 from translateskin import draw_shirt
-from translateskin import torso_2, left_leg_2, right_leg_2, left_leg, right_leg, left_shoe, right_shoe
+from translateskin import torso_2, left_arm_2, right_arm_2, left_leg_2, right_leg_2, left_leg, right_leg, left_shoe, right_shoe
 
 
 def quantize(rectangle):
@@ -234,6 +234,9 @@ if len(shirtWeights) > 0 and shirtMinRectSize > 10000:
     thirdNum = int(thirdNumString[0])
 
     finalSkin = draw_shirt("default.png", finalSkin, torso_2, (firstNum,secondNum,thirdNum))
+    finalSkin = draw_shirt("default.png", finalSkin, right_arm_2, (firstNum,secondNum,thirdNum))
+    finalSkin = draw_shirt("default.png", finalSkin, left_arm_2, (firstNum,secondNum,thirdNum))
+
 
 if len(pantsWeights) > 0 and pantsMinRectSize > 10000:
     pantsColor = find_color(pantsMinCon)
