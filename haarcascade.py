@@ -126,7 +126,7 @@ min_pants_weight, max_pants_weight = (10, 0), (0, 0)
 min_shoe_weight, max_shoe_weight = (10, 0), (0, 0)
 
 i = 1.01
-avg_shirt_weight, avg_pants_weight, avg_shoe_weight = (0, 0), (0, 0), (0, 0)
+avg_shirt_weight, avg_pants_weight, avg_shoe_weight = 0.0, 0.0, 0.0
 
 bestMinShirt = []
 bestMaxShirt = []
@@ -154,7 +154,7 @@ while i < 1.5:
     if avg_shirt_weight < min_shirt_weight[0]:
         min_shirt_weight = (avg_shirt_weight, i)
     if avg_shirt_weight > max_shirt_weight[0]:
-        max_shirt_weight = (avg_pants_weight, i)
+        max_shirt_weight = (avg_shirt_weight, i)
     if avg_pants_weight < min_pants_weight[0]:
         min_pants_weight = (avg_pants_weight, i)
     if avg_pants_weight > max_pants_weight[0]:
