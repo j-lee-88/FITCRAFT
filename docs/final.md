@@ -18,6 +18,8 @@ However, Haar-cascade is only good for detecting shapes but our project requires
 
 One of the major difficulties we ran into was finding a good clothing dataset with proper annotations, which are images that outline coordinates to an object in an image. We need proper annotations so that our classifier can learn to detect the outlined object from thousands of images. In the end, we had to stick with the Fashion MNIST dataset since all the images were simple clothing objects with no background, and therefore no need for annotations since the whole image is the object. However, this limited dataset has weakened our classifier since the images are simple and not diverse in angles.
 
+We initially looked into masked rcnn
+
 # Evaluation
 An important aspect of your project, as I’ve mentioned several times now, is evaluating yourproject. Be clear and precise about describing the evaluation setup, for both quantitative and qualitativeresults. Present the results to convince the reader that you havesolvedthe problem, to whatever extent youclaim you have. Use plots, charts, tables, screenshots, figures, etc. as needed. I expect you will need at leasta few paragraphs to describe each type of evaluation that you perform.
 
