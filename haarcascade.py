@@ -80,7 +80,7 @@ def largest_confident_rectangle(detections, weights):
 pantsCascade = cv2.CascadeClassifier('pantshaarcascade3/cascade.xml')
 shirtCascade = cv2.CascadeClassifier('shirtcascade/cascade.xml')
 shoeCascade = cv2.CascadeClassifier('shoecascade/cascade.xml')
-image_path = 'examples/tshirtpants.jpeg'
+image_path = 'examples/blueShirt.jpeg'
 image = cv2.imread(image_path)
 finalSkin = ""
 
@@ -126,7 +126,7 @@ min_pants_weight, max_pants_weight = (10, 0), (0, 0)
 min_shoe_weight, max_shoe_weight = (10, 0), (0, 0)
 
 i = 1.01
-avg_shirt_weight, avg_pants_weight, avg_shoe_weight = 0.0, 0.0, 0.0
+avg_shirt_weight, avg_pants_weight, avg_shoe_weight = (0, 0), (0, 0), (0, 0)
 
 bestMinShirt = []
 bestMaxShirt = []
@@ -154,7 +154,7 @@ while i < 1.5:
     if avg_shirt_weight < min_shirt_weight[0]:
         min_shirt_weight = (avg_shirt_weight, i)
     if avg_shirt_weight > max_shirt_weight[0]:
-        max_shirt_weight = (avg_shirt_weight, i)
+        max_shirt_weight = (avg_pants_weight, i)
     if avg_pants_weight < min_pants_weight[0]:
         min_pants_weight = (avg_pants_weight, i)
     if avg_pants_weight > max_pants_weight[0]:
@@ -183,13 +183,13 @@ print(shirtMaxRectSize, shirtMinRectSize, pantsMaxRectSize, pantsMinRectSize)
 #draw rectangle for detected objects if they exist and don't include if it's not at least 40,000 pixels since that is likely too small
 
 #print("test: " + str(minShirtScale))
-shirtDetections, shirtReject, shirtWeights = shirtCascade.detectMultiScale3(gray, scaleFactor=min_shirt_weight[1], minNeighbors=0, flags=0, outputRejectLevels=True)
+shirtDetections, shirtReject, shirtWeights = shirtCascade.detectMultiScale3(gray, scaleFactor=1.09, minNeighbors=0, flags=0, outputRejectLevels=True)
 shirtMaxCon, shirtMinCon, shirtMaxRectSize, shirtMinRectSize = largest_confident_rectangle(shirtDetections, shirtWeights)
 
-pantsDetections, pantsReject, pantsWeights = pantsCascade.detectMultiScale3(gray, scaleFactor=min_pants_weight[1], minNeighbors=0, flags=0, outputRejectLevels=True)
+pantsDetections, pantsReject, pantsWeights = pantsCascade.detectMultiScale3(gray, scaleFactor=1.07, minNeighbors=0, flags=0, outputRejectLevels=True)
 pantsMaxCon, pantsMinCon, pantsMaxRectSize, pantsMinRectSize = largest_confident_rectangle(pantsDetections, pantsWeights)
 
-shoeDetections, shoeReject, shoeWeights = shoeCascade.detectMultiScale3(gray, scaleFactor=min_shoe_weight[1], minNeighbors=0, flags=0, outputRejectLevels=True)
+shoeDetections, shoeReject, shoeWeights = shoeCascade.detectMultiScale3(gray, scaleFactor=1.29, minNeighbors=0, flags=0, outputRejectLevels=True)
 shoeMaxCon, shoeMinCon, shoeMaxRectSize, shoeMinRectSize = largest_confident_rectangle(shoeDetections, shoeWeights)
 
 #shirts
@@ -224,11 +224,12 @@ if len(shirtWeights) > 0 and shirtMinRectSize > 10000:
     shirtColor = find_color(shirtMinCon)
     stringTuple = str(shirtColor)
     stringTuple = stringTuple.replace('  ', ' ')
-    newTuple = stringTuple.split(" ")
+    newTuple = stringTuple.split()
     firstNumString = newTuple[0].split("[")
     secondNumString = newTuple[1]
     thirdNumString = newTuple[2].split("]")
-    #print(stringTuple)
+    print(newTuple)
+    print(thirdNumString)
     firstNum = int(firstNumString[1])
     secondNum = int(secondNumString)
     thirdNum = int(thirdNumString[0])
