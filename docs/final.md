@@ -18,7 +18,7 @@ However, Haar-cascade is only good for detecting shapes but our project requires
 
 One of the major difficulties we ran into was finding a good clothing dataset with proper annotations, which are images that outline coordinates to an object in an image. We need proper annotations so that our classifier can learn to detect the outlined object from thousands of images. In the end, we had to stick with the Fashion MNIST dataset since all the images were simple clothing objects with no background, and therefore no need for annotations since the whole image is the object. However, this limited dataset has weakened our classifier since the images are simple and not diverse in angles.
 
-We initially looked into masked rcnn
+We initially looked into masked rcnn but ran into a lot of difficulty in finding a dataset that can provide all the information that masked rcnn requires. This includes bounding boxes for the object in an image, prediction confidence or weights from a previously defined model, and an object mask (polygon outline for object). Masked RCNN is known to be more accurate than Haar Cascade since it makes use of convultional neural networks, which is the modern approach to machine learning. Haar Cascade is simply for feature extraction and detection on objects whereas Masked RCNN is more detailed image segmentation where we get an outline instead of a rectangle around an object.
 
 # Evaluation
 An important aspect of your project, as I’ve mentioned several times now, is evaluating yourproject. Be clear and precise about describing the evaluation setup, for both quantitative and qualitativeresults. Present the results to convince the reader that you havesolvedthe problem, to whatever extent youclaim you have. Use plots, charts, tables, screenshots, figures, etc. as needed. I expect you will need at leasta few paragraphs to describe each type of evaluation that you perform.
@@ -41,3 +41,5 @@ https://www.kaggle.com/zalando-research/fashionmnist Information on the Fashion 
 https://opencv-python-tutroals.readthedocs.io/en/latest/index.html Opencv documentation behind a lot of its functionality.
 
 https://github.com/JoakimSoderberg/haarcascade-negatives Negative image dataset.
+
+https://machinelearningmastery.com/how-to-perform-object-detection-in-photographs-with-mask-r-cnn-in-keras/ Attempted Masked RCNN tutorial but could not get it to work.
