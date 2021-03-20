@@ -21,10 +21,25 @@ We initially looked into masked rcnn but ran into a lot of difficulty in finding
 # Evaluation
 An important aspect of your project, as I’ve mentioned several times now, is evaluating yourproject. Be clear and precise about describing the evaluation setup, for both quantitative and qualitativeresults. Present the results to convince the reader that you havesolvedthe problem, to whatever extent youclaim you have. Use plots, charts, tables, screenshots, figures, etc. as needed. I expect you will need at leasta few paragraphs to describe each type of evaluation that you perform.
 
+Our classifier can currently detect shirts, pants, and shoes to an extent. These are some examples of how our classify works on simple clothing item images. To test our code qualitatively, we manually used our classifier on images attempting to find the limits of what we are able to classify. Some of our better results can be seen below.
+
+<img src="https://github.com/j-lee-88/FITCRAFT/blob/main/docimg/evaluation1.PNG" class="img-responsive" alt=""> </div>
+
+This shirt translates to this minecraft skin from our code:
+<img src="https://github.com/j-lee-88/FITCRAFT/blob/main/docimg/blueShirt.jpeg" class="img-responsive" alt=""> </div>
+<img src="https://github.com/j-lee-88/FITCRAFT/blob/main/docimg/evaluation2.png" class="img-responsive" alt=""> </div>
+
+Our shoe classifier is also in a working condition for simple positions as seen in this translation:
+<img src="https://github.com/j-lee-88/FITCRAFT/blob/main/docimg/evaulation3.PNG" class="img-responsive" alt=""> </div>
+<img src="https://github.com/j-lee-88/FITCRAFT/blob/main/docimg/evaluation4.PNG" class="img-responsive" alt=""> </div>
+
+To test our results quantitatively, we once again used the Fashion Mnist dataset and negative images. For each of our classifiers, we tested 500 random images of the correct clothing item from the mnist dataset and 500 negative images to see its accuracy. We can see the results below.
+<img src="https://github.com/j-lee-88/FITCRAFT/blob/main/docimg/accuracy.png" class="img-responsive" alt=""> </div>
+It should be noted that the MNIST dataset is only made of simple clothing items on blank backgrounds. here we can see our classifiers can detect the proper clothing item 90% of the time. However, the false positive rate for the shoe classifier is very high and the false positive for the shirts is slightly high as well. In this case, false positives are when we detect the object but there is no specified object in the images. Specifically, this means our shirt classifier detected an object 50% of the time in negative images, the pants classifier 0.286, and the shoe classifier 0.97. The classifier need a lot of work before it can be used realistically as it falsely classifies too often. Our pants classifier appears to be the most accurate with a 0.97 accuracy and 0.286 false positive rate.
+
 
 
 # References
-Make a list of work you’re citing in your description above (starting with a level-two header).This should include any papers you think are relevant, third-party source code you used, sources for any ofthe images that you didn’t create, and any other websites/links you found useful.
 
 https://minecraft.novaskin.me/ for minecraft skin uploading
 
