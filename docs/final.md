@@ -19,8 +19,6 @@ One of the major difficulties we ran into was finding a good clothing dataset wi
 We initially looked into masked rcnn but ran into a lot of difficulty in finding a dataset that can provide all the information that masked rcnn requires. This includes bounding boxes for the object in an image, prediction confidence or weights from a previously defined model, and an object mask (polygon outline for object). Masked RCNN is known to be more accurate than Haar Cascade since it makes use of convultional neural networks, which is the modern approach to machine learning. Haar Cascade is simply for feature extraction and detection on objects whereas Masked RCNN is more detailed image segmentation where we get an outline instead of a rectangle around an object.
 
 # Evaluation
-An important aspect of your project, as I’ve mentioned several times now, is evaluating yourproject. Be clear and precise about describing the evaluation setup, for both quantitative and qualitativeresults. Present the results to convince the reader that you havesolvedthe problem, to whatever extent youclaim you have. Use plots, charts, tables, screenshots, figures, etc. as needed. I expect you will need at leasta few paragraphs to describe each type of evaluation that you perform.
-
 Our classifier can currently detect shirts, pants, and shoes to an extent. These are some examples of how our classify works on simple clothing item images. To test our code qualitatively, we manually used our classifier on images attempting to find the limits of what we are able to classify. Some of our better results can be seen below.
 
 <img src="https://github.com/j-lee-88/FITCRAFT/blob/main/docimg/evaluation1.PNG" class="img-responsive" alt=""> </div>
@@ -33,9 +31,12 @@ Our shoe classifier is also in a working condition for simple positions as seen 
 <img src="https://github.com/j-lee-88/FITCRAFT/blob/main/docimg/evaulation3.PNG" class="img-responsive" alt=""> </div>
 <img src="https://github.com/j-lee-88/FITCRAFT/blob/main/docimg/evaluation4.PNG" class="img-responsive" alt=""> </div>
 
+We can see in our translations that the color is correctly apporopriated onto the minecraft skin.
+
 To test our results quantitatively, we once again used the Fashion Mnist dataset and negative images. For each of our classifiers, we tested 500 random images of the correct clothing item from the mnist dataset and 500 negative images to see its accuracy. We can see the results below.
 <img src="https://github.com/j-lee-88/FITCRAFT/blob/main/docimg/accuracy.png" class="img-responsive" alt=""> </div>
-It should be noted that the MNIST dataset is only made of simple clothing items on blank backgrounds. here we can see our classifiers can detect the proper clothing item 90% of the time. However, the false positive rate for the shoe classifier is very high and the false positive for the shirts is slightly high as well. In this case, false positives are when we detect the object but there is no specified object in the images. Specifically, this means our shirt classifier detected an object 50% of the time in negative images, the pants classifier 0.286, and the shoe classifier 0.97. The classifier need a lot of work before it can be used realistically as it falsely classifies too often. Our pants classifier appears to be the most accurate with a 0.97 accuracy and 0.286 false positive rate.
+
+It should be noted that the MNIST dataset is only made of simple clothing items on blank backgrounds. Here we can see our classifiers can detect the proper clothing item 90% of the time. However, the false positive rate for the shoe classifier is very high and the false positive for the shirts is slightly high as well. In this case, false positives are when we detect the object but there is no specified object in the images. Specifically, this means our shirt classifier detected an object 50% of the time in negative images, the pants classifier 0.286, and the shoe classifier 0.97. The shoe classifier need a lot of work before it can be used realistically as it falsely classifies too often. Our pants classifier appears to be the most accurate with a 0.97 accuracy and 0.286 false positive rate.
 
 
 
