@@ -21,7 +21,7 @@ We initially looked into masked rcnn but ran into a lot of difficulty in finding
 # Evaluation
 Our classifier can currently detect shirts, pants, and shoes to an extent. These are some examples of how our classify works on simple clothing item images. To test our code qualitatively, we manually used our classifier on images attempting to find the limits of what we are able to classify. Some of our better results can be seen below.
 
-<img src="docimg/evaluation1.PNG" alt="">
+![image](docimg/evaluation1.PNG)
 
 This shirt translates to this minecraft skin from our code:
 <img src="https://github.com/j-lee-88/FITCRAFT/blob/main/docimg/blueShirt.jpeg" class="img-responsive" alt=""> </div>
