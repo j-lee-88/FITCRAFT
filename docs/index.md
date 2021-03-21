@@ -21,12 +21,12 @@ The project our team has chosen to undertake is converting images of humans in o
 
 Here are examples of what the minecraft skin layout to real skin look like:
 
-![Mockup of Final Minecraft Skin For RGB T-Shirts](https://github.com/j-lee-88/FITCRAFT/blob/main/docimg/bluelayout.png)
-![Mockup of Final Minecraft Skin For RGB T-Shirts](https://github.com/j-lee-88/FITCRAFT/blob/main/docimg/bluelayoutshirt.png)
-![Mockup of Final Minecraft Skin For RGB T-Shirts](https://github.com/j-lee-88/FITCRAFT/blob/main/docimg/greenlayout.png)
-![Mockup of Final Minecraft Skin For RGB T-Shirts](https://github.com/j-lee-88/FITCRAFT/blob/main/docimg/greenlayoutshirt.png)
-![Mockup of Final Minecraft Skin For RGB T-Shirts](https://github.com/j-lee-88/FITCRAFT/blob/main/docimg/redlayout.png)
-![Mockup of Final Minecraft Skin For RGB T-Shirts](https://github.com/j-lee-88/FITCRAFT/blob/main/docimg/redlayoutshirt.png)
+![image](images/bluelayout.png)
+![image](images/bluelayoutshirt.png)
+![image](images/greenlayout.png)
+![image](images/greenlayoutshirt.png)
+![image](images/redlayout.png)
+![image](images/redlayoutshirt.png)
 
 ## Team Members
 Justin Lee
