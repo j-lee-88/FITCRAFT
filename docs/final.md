@@ -4,7 +4,7 @@ title: Final Report
 ---
 
 ## Video
-Embed video here
+<iframe width="560" height="315" src="https://www.youtube.com/embed/0M8t6AnGiao" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 # Project Summary
 The project we have chosen to approach is parsing images of outfits into corresponding Minecraft skins using computer vision techniques and algorithms. Our overall plan has not changed significantly in its theme since the start of the project, but we notably lost a team member, and so are working as a two-person group now. With that in mind, we have adjusted the scope and complexity of our final version to be more in line with our reduced group size. We are currently planning to support outfits including up to a shirt, pants, and shoes using a standardized Minecraft skin template that we will overlay each clothing piece on.
