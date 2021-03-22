@@ -62,18 +62,20 @@ https://minecraft.novaskin.me/ for Minecraft skin uploading
 
 https://stackoverflow.com/questions/40527769/removing-black-background-and-make-transparent-from-grabcut-output-in-python-ope for making an image with no background.
 
-https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_objdetect/py_face_detection/py_face_detection.html opencv information about Haar Cascades.
+https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_objdetect/py_face_detection/py_face_detection.html OpenCV information about Haar Cascades.
 
-https://docs.opencv.org/2.4/doc/user_guide/ug_traincascade.html the documentation behind Opencv's Haar Cascade functions.
+https://docs.opencv.org/2.4/doc/user_guide/ug_traincascade.html the documentation behind OpenCV's Haar Cascade functions.
 
 https://pythonprogramming.net/haar-cascade-object-detection-python-opencv-tutorial/ A tutorial on Haar Cascade.
 
 https://www.kaggle.com/zalando-research/fashionmnist Information on the Fashion MNIST dataset.
 
-https://opencv-python-tutroals.readthedocs.io/en/latest/index.html Opencv documentation behind a lot of its functionality.
+https://opencv-python-tutroals.readthedocs.io/en/latest/index.html OpenCV documentation behind a lot of its functionality.
 
 https://github.com/JoakimSoderberg/haarcascade-negatives Negative image dataset.
 
 https://machinelearningmastery.com/how-to-perform-object-detection-in-photographs-with-mask-r-cnn-in-keras/ Attempted Masked RCNN tutorial but could not get it to work.
 
 https://github.com/minotar/skin-spec Introduction to Minecraft skin specifications
+
+https://docs.opencv.org/master/d1/d5c/tutorial_py_kmeans_opencv.html OpenCV k-means clustering information 
